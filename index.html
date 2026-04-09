@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Sale - Venda de Mudança</title>
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1a1a1a',
+                        secondary: '#737373',
+                        accent: '#00806a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        /* Swiper Customization */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #1a1a1a;
+            background: rgba(255, 255, 255, 0.9);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+        
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .swiper-button-next {
+            right: 8px;
+        }
+        
+        .swiper-button-prev {
+            left: 8px;
+        }
+        
+        .swiper-pagination-bullet {
+            width: 6px;
+            height: 6px;
+            background: #737373;
+            opacity: 0.5;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: #1a1a1a;
+            opacity: 1;
+        }
+        
+        /* Card Hover Effect */
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Smooth image transitions */
+        .swiper-slide img {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Status badges */
+        .status-sold {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        }
+        
+        .status-reserved {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        /* WhatsApp button animation */
+        .whatsapp-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .whatsapp-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="bg-white text-primary">
+    
+    <!-- Header Section -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-light tracking-tight">
+                        Moving Sale - <span class="font-semibold">Maria Silva</span>
+                    </h1>
+                    <p class="mt-2 text-secondary text-sm sm:text-base max-w-xl">
+                        Estou me mudando e vendendo todos os meus móveis com ótimos descontos! 
+                        Tudo em perfeito estado e recentemente renovado.
+                    </p>
+                </div>
+                <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors shrink-0">
+                    <i data-lucide="phone" class="w-4 h-4"></i>
+                    <span>Contato</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        
+        <!-- Products Grid -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+        
+        <!-- Empty State (shown when no products) -->
+        <div id="empty-state" class="hidden text-center py-20">
+            <i data-lucide="package-x" class="w-16 h-16 text-secondary mx-auto mb-4 opacity-50"></i>
+            <p class="text-secondary text-lg">Não há produtos no momento.</p>
+        </div>
+        
+    </main>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-50 mt-12">
+        <div class="max-w-6xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-2xl sm:text-3xl font-light mb-4">
+                    Interessado em algum item?
+                </h2>
+                <p class="text-secondary mb-8 max-w-md mx-auto">
+                    Entre em contato pelo WhatsApp para mais informações, agendar uma visita ou fazer um pedido.
+                </p>
+                <a href="https://wa.me/5511999999999" target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#128C7E] transition-colors shadow-lg hover:shadow-xl">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                    <span>Entrar em Contato</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-secondary text-sm">
+            <p>Feito com cuidado • Moving Sale 2024</p>
+        </div>
+    </footer>
+    
+    <!-- Swiper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- Product Data and Rendering -->
+    <script>
+        /* ============================================
+           SITE CONFIGURATION
+           =========================================== */
+        
+        const SITE_CONFIG = {
+            name: "Maria Silva",
+            description: "Estou me mudando e vendendo todos os meus móveis com ótimos descontos! Tudo em perfeito estado e recentemente renovado.",
+            whatsappNumber: "5511999999999" // Seu número no formato: 55 + DDD + Número
+        };
+        
+        /* ============================================
+           PRODUCT LIST
+           Add, edit or remove products here
+           =========================================== */
+        
+        const products = [
+            {
+                id: 1,
+                name: "Sofá Retrátil 3 Lugares",
+                price: 800,
+                originalPrice: 1500,
+                description: "Sofá retrátil em perfeito estado, estofado em tecido cinza. Muito confortável e ideal para apartamentos.",
+                dimensions: "200cm x 90cm x 85cm",
+                status: "available", // available, sold, reserved
+                images: [
+                    "https://images.unsplash.com/photo-1555041469-a586c61ea9b2?w=800",
+                    "https://images.unsplash.com/photo-1493663287037-b582c3a32db0?w=800",
+                    "https://images.unsplash.com/photo-1540574168683-9e4ae68f43b2?w=800"
+                ]
+            },
+            {
+                id: 2,
+                name: "Mesa de Jantar",
+                price: 450,
+                originalPrice: 900,
+                description: "Mesa de jantar em madeira maciça para 6 pessoas. Acabamento rústico moderno.",
+                dimensions: "180cm x 90cm x 75cm",
+                status: "available",
+                images: [
+                    "https://images.unsplash.com/photo-1578140622405-139b5e95a487?w=800",
+                    "https://images.unsplash.com/photo-1617393284058-0d0f4c0b617e?w=800"
+                ]
+            },
+            {
+                id: 3,
+                name: "Cadeira de Escritório Ergonômica",
+                price: 350,
+                originalPrice: 700,
+                description: "Cadeira ergonômica com apoio lombar, ajustável. Cor preta, tecido respirável.",
+                dimensions: "60cm x 60cm x 110cm",
+                status: "reserved",
+                images: [
+                    "https://images.unsplash.com/photo-1580480055273-298fa16bc0e0?w=800",
+                    "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=800"
+                ]
+            },
+            {
+                id: 4,
+                name: "Escritorão em L",
+                price: 600,
+                originalPrice: 1200,
+                description: "Escritorão em L para home office. Espaço amplo com gavetas e suporte para cabos.",
+                dimensions: "160cm x 120cm x 75cm",
+                status: "available",
+                images: [
+                    "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=800",
+                    "https://images.unsplash.com/photo-1518455027359-d3d461b4c5e8?w=800"
+                ]
+            },
+            {
+                id: 5,
+                name: "Cama Queen Size",
+                price: 700,
+                originalPrice: 1400,
+                description: "Cama queen size com colchão ortho. Estrutura em madeira com cabeceiro estofado.",
+                dimensions: "160cm x 200cm",
+                status: "sold",
+                images: [
+                    "https://images.unsplash.com/photo-1505693416388-b0346efee7e9?w=800",
+                    "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=800"
+                ]
+            },
+            {
+                id: 6,
+                name: "Estante Modular",
+                price: 280,
+                originalPrice: 560,
+                description: "Estante modular branca com 8 compartimentos. Ideal para livros e decoração.",
+                dimensions: "120cm x 80cm x 30cm",
+                status: "available",
+                images: [
+                    "https://images.unsplash.com/photo-1594916032781-d0f98d6a5c6e?w=800",
+                    "https://images.unsplash.com/photo-1565793298896-0a8e7e3b4d15?w=800"
+                ]
+            },
+            {
+                id: 7,
+                name: "Rack de TV Minimalista",
+                price: 400,
+                originalPrice: 800,
+                description: "Rack moderno e minimalista para TV até 55 polegadas. Suporte para console e streaming.",
+                dimensions: "140cm x 50cm x 40cm",
+                status: "available",
+                images: [
+                    "https://images.unsplash.com/photo-1593784652104-fcbe2e77a9d0?w=800",
+                    "https://images.unsplash.com/photo-1524758631624-e0a285d551e9?w=800"
+                ]
+            },
+            {
+                id: 8,
+                name: "Armário de Cozinha",
+                price: 500,
+                originalPrice: 1000,
+                description: "Armário de cozinha com portas em vidro e prateleiras ajustáveis. Acabamento branco fosco.",
+                dimensions: "100cm x 80cm x 45cm",
+                status: "available",
+                images: [
+                    "https://images.unsplash.com/photo-1556912872-acd2a5b8bb30?w=800",
+                    "https://images.unsplash.com/photo-1565538810643-b7c9e2a2d4b4?w=800"
+                ]
+            },
+            {
+                id: 9,
+                name: "Carrinho de Serviço",
+                price: 150,
+                originalPrice: 300,
+                description: "Carrinho de serviço com rodas, ideal para cozinha ou sala. Madeira e metal.",
+                dimensions: "60cm x 40cm x 80cm",
+                status: "available",
+                images: [
+                    "https://images.unsplash.com/photo-1576402439895-8a7d750b1f6c?w=800",
+                    "https://images.unsplash.com/photo-1534629780966-3d6c2f3a1b4e?w=800"
+                ]
+            }
+        ];
+        
+        /* ============================================
+           RENDERING FUNCTIONS
+           =========================================== */
+        
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+        }
+        
+        function getStatusConfig(status) {
+            const statusMap = {
+                available: { label: '', class: '', icon: '' },
+                sold: { label: 'VENDIDO', class: 'status-sold', icon: 'check-circle' },
+                reserved: { label: 'RESERVADO', class: 'status-reserved', icon: 'clock' }
+            };
+            return statusMap[status] || statusMap.available;
+        }
+        
+        function generateWhatsAppLink(product) {
+            const message = `Olá! Gostaria de saber mais sobre o ${encodeURIComponent(product.name)} que vi no seu Moving Sale.`;
+            return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${message}`;
+        }
+        
+        function createProductCard(product) {
+            const statusConfig = getStatusConfig(product.status);
+            const isAvailable = product.status === 'available';
+            
+            return `
+                <article class="product-card bg-white rounded-2xl overflow-hidden border border-gray-100 group ${!isAvailable ? 'opacity-75' : ''}">
+                    
+                    <!-- Image Carousel -->
+                    <div class="swiper product-swiper h-64 bg-gray-50">
+                        <div class="swiper-wrapper">
+                            ${product.images.map((img, idx) => `
+                                <div class="swiper-slide">
+                                    <img src="${img}" alt="${product.name} - ${idx + 1}" class="w-full h-full object-cover">
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <!-- Navigation Arrows -->
+                        <div class="swiper-button-prev hidden-group"></div>
+                        <div class="swiper-button-next hidden-group"></div>
+                        
+                        <!-- Pagination -->
+                        ${product.images.length > 1 ? `
+                            <div class="swiper-pagination"></div>
+                        ` : ''}
+                    </div>
+                    
+                    <!-- Status Badge -->
+                    ${statusConfig.label ? `
+                        <div class="absolute top-4 left-4">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white ${statusConfig.class}">
+                                <i data-lucide="${statusConfig.icon}" class="w-3 h-3"></i>
+                                ${statusConfig.label}
+                            </span>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Product Info -->
+                    <div class="p-5">
+                        <!-- Title and Price Row -->
+                        <div class="flex justify-between items-start gap-4 mb-2">
+                            <h3 class="text-lg font-semibold text-primary line-clamp-1 flex-1">
+                                ${product.name}
+                            </h3>
+                        </div>
+                        
+                        <!-- Price -->
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl font-bold text-primary">
+                                ${formatCurrency(product.price)}
+                            </span>
+                            ${product.originalPrice ? `
+                                <span class="text-sm text-secondary line-through">
+                                    ${formatCurrency(product.originalPrice)}
+                                </span>
+                            ` : ''}
+                        </div>
+                        
+                        <!-- Description -->
+                        <p class="text-secondary text-sm mb-4 line-clamp-2">
+                            ${product.description}
+                        </p>
+                        
+                        <!-- Dimensions -->
+                        <div class="flex items-center gap-2 text-xs text-secondary mb-4">
+                            <i data-lucide="ruler" class="w-3 h-3"></i>
+                            <span>${product.dimensions}</span>
+                        </div>
+                        
+                        <!-- WhatsApp Button -->
+                        ${isAvailable ? `
+                            <a href="${generateWhatsAppLink(product)}" 
+                               target="_blank"
+                               class="whatsapp-btn w-full inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-xl font-medium hover:bg-[#128C7E] transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                <span>Tenho Interesse</span>
+                            </a>
+                        ` : `
+                            <button disabled class="w-full inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-400 px-4 py-3 rounded-xl font-medium cursor-not-allowed">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                                <span>${statusConfig.label}</span>
+                            </button>
+                        `}
+                    </div>
+                </article>
+            `;
+        }
+        
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const emptyState = document.getElementById('empty-state');
+            
+            if (products.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            grid.innerHTML = products.map(createProductCard).join('');
+            emptyState.classList.add('hidden');
+        }
+        
+        function initSwipers() {
+            new Swiper('.product-swiper', {
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    dynamicBullets: true
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                },
+                keyboard: true,
+                mousewheel: false,
+                speed: 300
+            });
+        }
+        
+        /* ============================================
+           INITIALIZATION
+           =========================================== */
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update header with config
+            const titleElement = document.querySelector('header h1');
+            if (titleElement) {
+                titleElement.innerHTML = `Moving Sale - <span class="font-semibold">${SITE_CONFIG.name}</span>`;
+            }
+            
+            const descElement = document.querySelector('header p');
+            if (descElement) {
+                descElement.textContent = SITE_CONFIG.description;
+            }
+            
+            // Render products
+            renderProducts();
+            
+            // Initialize Swiper carousels
+            initSwipers();
+            
+            // Initialize Lucide icons
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
