@@ -124,10 +124,11 @@
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
             <h1 class="text-4xl sm:text-6xl font-light mb-6 tracking-tight">A New Chapter: Moving Back to Brazil</h1>
             <p class="text-lg sm:text-xl opacity-90 leading-relaxed max-w-2xl mx-auto">
-                We are heading back to Brazil to be closer to family, and we’re clearing out our home before we go. 
-                We’ve listed our furniture here, with many items available for purchase or donation. 
+                We are heading back to Brazil to be closer to family, and we’re clearing out our home before we go.
+                We’ve listed our furniture here, with many items available for purchase or donation.
                 Please feel free to make an offer on anything you see.
             </p>
+            <p class="mt-4 text-sm sm:text-base font-medium opacity-80">Wellington, Samira, Lufe & Tonico</p>
         </div>
     </section>
     
@@ -191,16 +192,15 @@
         const products = [
             {
                 id: 1,
-                name: "3-Seater Reclining Sofa",
-                price: 800,
-                originalPrice: 1500,
-                description: "Reclining sofa in perfect condition, upholstered in gray fabric. Very comfortable and ideal for apartments.",
-                dimensions: "200cm x 90cm x 85cm",
+                name: "Holley Oversized Fabric Accent Chair with Storage Ottoman",
+                price: 300,
+                description: "Oversized seat in perfect condition. Comes with a hidden storage and 3 back pillows. (New at Costco: ~$549.99). Bought 10/2024.",
+                dimensions: "53.9\" L x 59.7\" W x 36.6\" H",
                 status: "available", // available, sold, reserved
                 images: [
-                    "https://images.unsplash.com/photo-1555041469-a586c61ea9b2?w=800",
-                    "https://images.unsplash.com/photo-1493663287037-b582c3a32db0?w=800",
-                    "https://images.unsplash.com/photo-1540574168683-9e4ae68f43b2?w=800"
+                    "images/4000281800-847__1.webp",
+                    "images/4000281800-847__4.webp",
+                    "images/4000281800-847__5.webp"
                 ]
             },
             {
@@ -352,7 +352,7 @@
                     ` : ''}
 
                     <!-- Image Carousel -->
-                    <div class="swiper product-swiper h-64 bg-gray-50 shrink-0">
+                    <div class="swiper product-swiper h-56 bg-gray-50 shrink-0">
                         <div class="swiper-wrapper">
                             ${product.images.map((img, idx) => `
                                 <div class="swiper-slide">
