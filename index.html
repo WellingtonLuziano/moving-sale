@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moving Sale</title>
+    <title>Moving Sale - A New Chapter</title>
     
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,30 +49,29 @@
         /* Swiper Customization */
         .swiper-button-next,
         .swiper-button-prev {
-            color: #1a1a1a;
-            background: rgba(255, 255, 255, 0.9);
-            width: 36px;
-            height: 36px;
+            color: #1a1a1a !important;
+            background: rgba(255, 255, 255, 0.7);
+            width: 32px !important;
+            height: 32px !important;
             border-radius: 50%;
+            transition: all 0.2s ease;
         }
-        
-        .swiper-button-next::after,
-        .swiper-button-prev::after {
-            font-size: 16px;
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 14px !important;
             font-weight: bold;
         }
-        
-        .swiper-button-next {
-            right: 8px;
-        }
-        
-        .swiper-button-prev {
-            left: 8px;
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
         }
         
         .swiper-pagination-bullet {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: #737373;
             opacity: 0.5;
         }
@@ -90,11 +89,6 @@
         .product-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Smooth image transitions */
-        .swiper-slide img {
-            transition: transform 0.3s ease;
         }
         
         /* Status badges */
@@ -122,32 +116,26 @@
 </head>
 <body class="bg-white text-primary">
     
-    <!-- Header Section -->
-    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                    <h1 class="text-3xl sm:text-4xl font-light tracking-tight">
-                        Moving Sale - <span class="font-semibold">Maria Silva</span>
-                    </h1>
-                    <p class="mt-2 text-secondary text-sm sm:text-base max-w-xl">
-                        I am moving and selling all my furniture at great discounts! 
-                        Everything is in perfect condition and recently renovated.
-                    </p>
-                </div>
-                <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors shrink-0">
-                    <i data-lucide="phone" class="w-4 h-4"></i>
-                    <span>Contact</span>
-                </a>
-            </div>
+    <!-- Hero Section -->
+    <section class="relative h-[60vh] sm:h-[70vh] flex items-center justify-center text-white overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2000" 
+             class="absolute inset-0 w-full h-full object-cover" alt="Sunset background">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <h1 class="text-4xl sm:text-6xl font-light mb-6 tracking-tight">A New Chapter: Moving Back to Brazil</h1>
+            <p class="text-lg sm:text-xl opacity-90 leading-relaxed max-w-2xl mx-auto">
+                We are heading back to Brazil to be closer to family, and we’re clearing out our home before we go. 
+                We’ve listed our furniture here, with many items available for purchase or donation. 
+                Please feel free to make an offer on anything you see.
+            </p>
         </div>
-    </header>
+    </section>
     
     <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         
         <!-- Products Grid -->
-        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Products will be dynamically inserted here -->
         </div>
         
@@ -163,9 +151,7 @@
     <section id="contact" class="bg-gray-50 mt-12">
         <div class="max-w-6xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-2xl sm:text-3xl font-light mb-4">
-                    Interested in an item?
-                </h2>
+                <h2 class="text-2xl sm:text-3xl font-light mb-4">Interested in an item?</h2>
                 <p class="text-secondary mb-8 max-w-md mx-auto">
                     Contact us via WhatsApp for more information, to schedule a visit, or to place an order.
                 </p>
@@ -195,13 +181,11 @@
         
         const SITE_CONFIG = {
             name: "Maria Silva",
-            description: "I am moving and selling all my furniture at great discounts! Everything is in perfect condition and recently renovated.",
-            whatsappNumber: "5511999999999" // Your number in format: 55 + DDD + Number
+            whatsappNumber: "5511999999999" 
         };
         
         /* ============================================
            PRODUCT LIST
-           Add, edit or remove products here
            =========================================== */
         
         const products = [
@@ -355,10 +339,20 @@
             const isAvailable = product.status === 'available';
             
             return `
-                <article class="product-card bg-white rounded-2xl overflow-hidden border border-gray-100 group ${!isAvailable ? 'opacity-75' : ''}">
+                <article class="product-card bg-white rounded-2xl overflow-hidden border border-gray-100 group flex flex-col h-full relative ${!isAvailable ? 'opacity-75' : ''}">
                     
+                    <!-- Status Badge (Overlay) -->
+                    ${statusConfig.label ? `
+                        <div class="absolute top-4 left-4 z-20">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white ${statusConfig.class}">
+                                <i data-lucide="${statusConfig.icon}" class="w-3 h-3"></i>
+                                ${statusConfig.label}
+                            </span>
+                        </div>
+                    ` : ''}
+
                     <!-- Image Carousel -->
-                    <div class="swiper product-swiper h-64 bg-gray-50">
+                    <div class="swiper product-swiper h-64 bg-gray-50 shrink-0">
                         <div class="swiper-wrapper">
                             ${product.images.map((img, idx) => `
                                 <div class="swiper-slide">
@@ -368,8 +362,8 @@
                         </div>
                         
                         <!-- Navigation Arrows -->
-                        <div class="swiper-button-prev hidden-group"></div>
-                        <div class="swiper-button-next hidden-group"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                         
                         <!-- Pagination -->
                         ${product.images.length > 1 ? `
@@ -377,18 +371,8 @@
                         ` : ''}
                     </div>
                     
-                    <!-- Status Badge -->
-                    ${statusConfig.label ? `
-                        <div class="absolute top-4 left-4">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white ${statusConfig.class}">
-                                <i data-lucide="${statusConfig.icon}" class="w-3 h-3"></i>
-                                ${statusConfig.label}
-                            </span>
-                        </div>
-                    ` : ''}
-                    
                     <!-- Product Info -->
-                    <div class="p-5">
+                    <div class="p-5 flex flex-col flex-grow">
                         <!-- Title and Price Row -->
                         <div class="flex justify-between items-start gap-4 mb-2">
                             <h3 class="text-lg font-semibold text-primary line-clamp-1 flex-1">
@@ -409,7 +393,7 @@
                         </div>
                         
                         <!-- Description -->
-                        <p class="text-secondary text-sm mb-4 line-clamp-2">
+                        <p class="text-secondary text-sm mb-4 line-clamp-3 flex-grow">
                             ${product.description}
                         </p>
                         
@@ -420,19 +404,21 @@
                         </div>
                         
                         <!-- WhatsApp Button -->
-                        ${isAvailable ? `
-                            <a href="${generateWhatsAppLink(product)}" 
-                               target="_blank"
-                               class="whatsapp-btn w-full inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-xl font-medium hover:bg-[#128C7E] transition-colors">
-                                <i data-lucide="message-circle" class="w-4 h-4"></i>
-                                <span>I'm Interested</span>
-                            </a>
-                        ` : `
-                            <button disabled class="w-full inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-400 px-4 py-3 rounded-xl font-medium cursor-not-allowed">
-                                <i data-lucide="x" class="w-4 h-4"></i>
-                                <span>${statusConfig.label}</span>
-                            </button>
-                        `}
+                        <div class="mt-auto">
+                            ${isAvailable ? `
+                                <a href="${generateWhatsAppLink(product)}" 
+                                   target="_blank"
+                                   class="whatsapp-btn w-full inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-xl font-medium hover:bg-[#128C7E] transition-colors">
+                                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                    <span>I'm Interested</span>
+                                </a>
+                            ` : `
+                                <button disabled class="w-full inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-400 px-4 py-3 rounded-xl font-medium cursor-not-allowed">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                    <span>${statusConfig.label}</span>
+                                </button>
+                            `}
+                        </div>
                     </div>
                 </article>
             `;
@@ -475,17 +461,6 @@
            =========================================== */
         
         document.addEventListener('DOMContentLoaded', () => {
-            // Update header with config
-            const titleElement = document.querySelector('header h1');
-            if (titleElement) {
-                titleElement.innerHTML = `Moving Sale - <span class="font-semibold">${SITE_CONFIG.name}</span>`;
-            }
-            
-            const descElement = document.querySelector('header p');
-            if (descElement) {
-                descElement.textContent = SITE_CONFIG.description;
-            }
-            
             // Render products
             renderProducts();
             
