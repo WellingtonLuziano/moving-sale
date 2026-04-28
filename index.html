@@ -125,19 +125,7 @@
             opacity: 0.6;
         }
 
-        .product-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            backdrop-filter: blur(0px);
-            transition: backdrop-filter 0.3s ease;
-            pointer-events: none;
-            border-radius: inherit;
-        }
 
-        .product-card:hover::before {
-            backdrop-filter: blur(2px);
-        }
         
         /* Status badges */
         .status-sold { background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); }
@@ -429,7 +417,7 @@
                 </div>
                 
                 <label class="flex items-center gap-2 cursor-pointer select-none">
-                    <input type="checkbox" id="available-toggle" class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent">
+                    <input type="checkbox" id="available-toggle" checked class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent">
                     <span class="text-sm text-secondary">Available only</span>
                 </label>
 
@@ -903,7 +891,7 @@
             search: '',
             category: 'all',
             sortBy: 'discount',
-            showAvailableOnly: false
+            showAvailableOnly: true
         };
 
         let currentLightboxProduct = null;
@@ -988,12 +976,12 @@
                 search: '',
                 category: 'all',
                 sortBy: 'discount',
-                showAvailableOnly: false
+                showAvailableOnly: true
             };
             
             document.getElementById('search-input').value = '';
             document.getElementById('sort-select').value = 'discount';
-            document.getElementById('available-toggle').checked = false;
+            document.getElementById('available-toggle').checked = true;
             
             document.querySelectorAll('.category-pill').forEach(pill => {
                 pill.classList.remove('active');
