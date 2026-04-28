@@ -804,51 +804,20 @@
             },
             {
                 id: 18,
-                name: "Dresser",
+                name: "IKEA Dresser",
                 category: "furniture",
                 tags: ["furniture", "storage"],
                 price: 0,
                 originalPrice: 0,
-                description: "Free dresser, perfect condition, must pick up on 05/09/2026.",
-                dimensions: "7 quart capacity",
+                description: "Free IKEA dresser, perfect condition, must pick up on 05/09/2026.",
+                dimensions: "64\" W x 20\" D x 37\" H",
                 status: "available",
                 images: [
-                    "images/airfryer.png",
-                    "images/airfryer2.png"
+                    "images/ikeadresser.png",
                 ]
             },
             {
                 id: 19,
-                name: "Ninja blender",
-                category: "kitchen",
-                tags: ["cooking", "appliances"],
-                price: 100,
-                originalPrice: 200,
-                description: "Foodi DualZone FlexBasket Air Fryer with 7-Quart MegaZone - DZ071.",
-                dimensions: "7 quart capacity",
-                status: "available",
-                images: [
-                    "images/airfryer.png",
-                    "images/airfryer2.png"
-                ]
-            },
-            {
-                id: 20,
-                name: "Kids bed",
-                category: "kitchen",
-                tags: ["cooking", "appliances"],
-                price: 100,
-                originalPrice: 200,
-                description: "Foodi DualZone FlexBasket Air Fryer with 7-Quart MegaZone - DZ071.",
-                dimensions: "7 quart capacity",
-                status: "available",
-                images: [
-                    "images/airfryer.png",
-                    "images/airfryer2.png"
-                ]
-            },
-            {
-                id: 21,
                 name: "Hanger",
                 category: "kitchen",
                 tags: ["cooking", "appliances"],
@@ -862,37 +831,21 @@
                 ]
             },
             {
-                id: 22,
+                id: 20,
                 name: "Dresser",
                 category: "furniture",
                 tags: ["furniture", "storage"],
                 price: 0,
                 originalPrice: 0,
-                description: "Free dresser, perfect condition, must pick up on 05/09/2026.",
-                dimensions: "7 quart capacity",
+                description: "Free dresser.",
+                dimensions: "31\" W x 20\" D x 30\" H",
                 status: "available",
                 images: [
-                    "images/airfryer.png",
-                    "images/airfryer2.png"
+                    "images/dresser2.png",
                 ]
             },
             {
-                id: 23,
-                name: "Humidifier",
-                category: "kitchen",
-                tags: ["cooking", "appliances"],
-                price: 100,
-                originalPrice: 200,
-                description: "Foodi DualZone FlexBasket Air Fryer with 7-Quart MegaZone - DZ071.",
-                dimensions: "7 quart capacity",
-                status: "available",
-                images: [
-                    "images/airfryer.png",
-                    "images/airfryer2.png"
-                ]
-            },
-            {
-                id: 24,
+                id: 21,
                 name: "IKEA Shoe rack",
                 category: "furniture",
                 tags: ["furniture", "storage"],
@@ -904,6 +857,21 @@
                 images: [
                     "images/shoe_rack.jpeg",
                     "images/shoe_rack2.jpeg"
+                ]
+            },
+            {
+                id: 22,
+                name: "REI Co-op Child carrier",
+                category: "furniture",
+                tags: ["furniture", "storage"],
+                price: 20,
+                originalPrice: 60,
+                description: "Used child carrier, good condition.",
+                dimensions: "",
+                status: "available",
+                images: [
+                    "images/carrier.jpeg",
+                    "images/carrier2.jpeg"
                 ]
             }
 
@@ -1080,7 +1048,14 @@
                         </div>
                         
                         <p class="text-xs text-secondary mb-3 flex-grow line-clamp-2 leading-relaxed">${product.description}</p>
-                        
+
+                        ${product.dimensions ? `
+                            <div class="flex items-center gap-1.5 text-xs text-secondary mb-3">
+                                <i data-lucide="ruler" class="w-3.5 h-3.5 shrink-0"></i>
+                                <span>${product.dimensions}</span>
+                            </div>
+                        ` : ''}
+
                         ${isAvailable ? `
                             <a href="${generateWhatsAppLink(product)}" 
                                target="_blank" 
@@ -1197,7 +1172,12 @@
             
             // Set content
             document.getElementById('lightbox-title').textContent = product.name;
-            document.getElementById('lightbox-price').textContent = `$${product.price}`;
+            const lightboxPriceEl = document.getElementById('lightbox-price');
+            let priceHTML = `$${product.price}`;
+            if (product.dimensions) {
+                priceHTML += ` <span class="text-sm font-normal text-white/70 ml-2">• ${product.dimensions}</span>`;
+            }
+            lightboxPriceEl.innerHTML = priceHTML;
             document.getElementById('lightbox-whatsapp').href = generateWhatsAppLink(product);
             
             // Build swiper slides
